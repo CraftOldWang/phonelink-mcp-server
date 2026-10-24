@@ -61,6 +61,7 @@ export async function handleGetNotifications(params) {
     try {
         const result = await runPowerShellJson("get-notifications.ps1", {
             MaxNotifications: params.max_notifications,
+            MatchText: params.match_text ?? "",
         });
         if (result.error)
             return errorOutput(result.error);

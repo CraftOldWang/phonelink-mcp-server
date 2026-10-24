@@ -1,11 +1,12 @@
-<#
+﻿<#
 .SYNOPSIS
     Reads phone notifications from the Phone Link Notifications panel.
 .PARAMETER MaxNotifications
     Maximum number of notifications to extract (default: 30).
 #>
 param(
-    [int]$MaxNotifications = 30
+    [int]$MaxNotifications = 30,
+    [string]$MatchText = ""
 )
 
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -72,7 +73,8 @@ try {
 
             if (-not $name -or $name.Length -lt 2) { continue }
 
-            if ($ctrlType -in @("ListItem", "DataItem", "Custom", "Group")) {
+            if ($ctrlType -eq "ListItem" -and $className -eq "RepeaterItemUserControl") {
+                if ($MatchText -and $name.IndexOf($MatchText, [StringComparison]::OrdinalIgnoreCase) -lt 0) { continue }
                 if ($name -match "^(Messages|Calls|Photos|Notifications|Apps)$") { continue }
                 if ($name -match "^(Messaggi|Chiamate|Foto|Notifiche|App)$") { continue }
 

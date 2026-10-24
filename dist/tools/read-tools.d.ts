@@ -15,6 +15,7 @@ export declare function handleGetCalls(params: {
 }): Promise<ReturnType<typeof formatOutput>>;
 export declare function handleGetNotifications(params: {
     max_notifications: number;
+    match_text?: string;
 }): Promise<ReturnType<typeof formatOutput>>;
 export declare function handleGetPhotos(params: {
     max_photos: number;

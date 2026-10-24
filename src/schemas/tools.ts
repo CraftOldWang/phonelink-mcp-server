@@ -27,6 +27,7 @@ export const GetCallsInputSchema = z.object({
 }).strict();
 
 export const GetNotificationsInputSchema = z.object({
+  match_text: z.string().max(200).default("").describe("Local literal-text filter before returning notifications."),
   max_notifications: z.number()
     .int().min(1).max(100)
     .default(30)

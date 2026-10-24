@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Gets Phone Link connection status and basic phone info from the UI.
 #>
@@ -25,7 +25,6 @@ try {
         status      = $snapshot.status
         phone_name  = $snapshot.phone_name
         app_running = $true
-        ui_texts    = $snapshot.ui_texts
     }
 } catch {
     ConvertTo-McpJson @{

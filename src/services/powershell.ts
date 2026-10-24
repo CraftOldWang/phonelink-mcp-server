@@ -286,24 +286,17 @@ export async function runPowerShellJson<T>(
     ])
   );
 
-  let lastError: Error | undefined;
-
   for (const candidate of attempts) {
     try {
       const parsed = JSON.parse(candidate) as T;
       return normalizeParsedPowerShellJson(parsed);
-    } catch (error) {
-      lastError = error as Error;
+    } catch {
+      // Try the existing encoding repairs without exposing notification fragments.
     }
   }
 
-  const stderrText = result.stderr.trim();
-  const stderrSuffix = stderrText ? ` Stderr: ${stderrText.slice(0, 1000)}` : "";
-  throw new Error(
-    `Failed to parse JSON from "${scriptName}". ${lastError?.message ?? "Unknown parsing error."}${stderrSuffix} Raw output:\n${extracted.slice(0, 1000)}`
-  );
+  throw new Error(`Failed to parse JSON from "${scriptName}". Raw output omitted to protect notification content.`);
 }
-
 /**
  * Checks if PowerShell is available on the system.
  */

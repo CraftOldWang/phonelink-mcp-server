@@ -21,10 +21,13 @@ export declare const GetCallsInputSchema: z.ZodObject<{
     max_calls?: number | undefined;
 }>;
 export declare const GetNotificationsInputSchema: z.ZodObject<{
+    match_text: z.ZodDefault<z.ZodString>;
     max_notifications: z.ZodDefault<z.ZodNumber>;
 }, "strict", z.ZodTypeAny, {
+    match_text: string;
     max_notifications: number;
 }, {
+    match_text?: string | undefined;
     max_notifications?: number | undefined;
 }>;
 export declare const GetPhotosInputSchema: z.ZodObject<{

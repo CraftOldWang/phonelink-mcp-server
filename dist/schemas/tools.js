@@ -20,6 +20,7 @@ export const GetCallsInputSchema = z.object({
         .describe("Maximum number of call entries to return (default: 20)."),
 }).strict();
 export const GetNotificationsInputSchema = z.object({
+    match_text: z.string().max(200).default("").describe("Local literal-text filter before returning notifications."),
     max_notifications: z.number()
         .int().min(1).max(100)
         .default(30)

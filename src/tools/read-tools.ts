@@ -75,10 +75,12 @@ export async function handleGetCalls(params: {
 
 export async function handleGetNotifications(params: {
   max_notifications: number;
+  match_text?: string;
 }): Promise<ReturnType<typeof formatOutput>> {
   try {
     const result = await runPowerShellJson<NotificationsResult>("get-notifications.ps1", {
       MaxNotifications: params.max_notifications,
+      MatchText: params.match_text ?? "",
     });
     if (result.error) return errorOutput(result.error);
     return formatOutput(result);
